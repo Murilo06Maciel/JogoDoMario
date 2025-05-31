@@ -93,4 +93,8 @@ function startGame() {
 }
 
 startBtn.addEventListener('click', startGame);
-document.addEventListener('keydown', jump);
+document.addEventListener('keydown', (event) => {
+    if (event.code === 'Space' || event.code === 'ArrowUp') {
+        jump();
+    }
+});
