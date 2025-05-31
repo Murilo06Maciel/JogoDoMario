@@ -18,7 +18,7 @@
     position:absolute;
     bottom: 0;
     width: 80px;
-    animation: pipe-animation 1.5s infinite linear;
+    animation: pipe-animation 3s infinite linear;
 }
 
 .mario {
@@ -28,7 +28,7 @@
 }
 
 .jump {
-    animation: jump 500ms ease-out;
+    animation: jump 700ms ease-out; /* aumente o tempo aqui */
 }
 
 .clouds{
@@ -52,13 +52,13 @@
         bottom: 0;
     }
     40% {
-        bottom: 180px;
+        bottom: 200px;
     }
     50% {
-        bottom: 180px;
+        bottom: 200px;
     }
     60% {
-        bottom: 180px;
+        bottom: 200px;
     }
     100% {
         bottom: 0;
@@ -72,4 +72,32 @@
     to {
         right: 100%;
     }
+}
+
+@keyframes mario-gameover-jump {
+    0% {
+        bottom: 0;
+        transform: rotate(0deg);
+    }
+    20% {
+        bottom: 120px;
+        transform: rotate(-10deg);
+    }
+    40% {
+        bottom: 160px;
+        transform: rotate(10deg);
+    }
+    60% {
+        bottom: 120px;
+        transform: rotate(-10deg);
+    }
+    100% {
+        bottom: -400px; /* cai bem além da borda do game-board */
+        transform: rotate(30deg);
+    }
+}
+
+.mario.game-over-jump {
+    animation: mario-gameover-jump 1.2s forwards;
+    transition: bottom 0.3s;
 }
