@@ -1,0 +1,27 @@
+.como-jogar-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    padding: 0 24px;
+}
+.como-jogar-card {
+    flex: 1 1 0;
+    min-width: 0;
+}
+.como-jogar-gif {
+    flex: 0 0 auto;
+    max-width: 300px;
+    width: 100%;
+}
+@media (max-width: 900px) {
+    .como-jogar-container {
+        flex-direction: column;
+        gap: 16px;
+    }
+    .como-jogar-gif {
+        max-width: 220px;
+    }
+}
