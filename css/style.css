@@ -12,6 +12,7 @@
     position: relative;
     overflow: hidden;
     background: linear-gradient(#87CEEB, #E0F6FF);
+    margin-bottom: 0;
 }
 
 .pipe {
