@@ -34,7 +34,6 @@ function chooseObstacle() {
         bill.style.display = 'none';
         bill.style.animation = 'none';
     } else {
-        // 50% de chance para cada obstáculo
         currentObstacle = Math.random() < 0.5 ? 'pipe' : 'bill';
         if (currentObstacle === 'pipe') {
             pipe.style.display = 'block';
@@ -43,7 +42,7 @@ function chooseObstacle() {
             bill.style.animation = 'none';
         } else {
             bill.style.display = 'block';
-            bill.style.animation = 'bill-animation 4s infinite linear';
+            bill.style.animation = 'bill-animation 1s infinite linear'; // altere para 1s
             pipe.style.display = 'none';
             pipe.style.animation = 'none';
         }
@@ -92,7 +91,7 @@ function startGame() {
                 pipesJumped++;
                 updateScore();
                 canScore = false;
-                if (pipesJumped % 10 === 0) {
+                if (pipesJumped % 5 === 0) {
                     pipeSpeed *= 0.9975;
                 }
                 // Troca obstáculo ao passar

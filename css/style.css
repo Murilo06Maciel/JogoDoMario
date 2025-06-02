@@ -30,7 +30,7 @@
 }
 
 .jump {
-    animation: jump 700ms ease-out; /* aumente o tempo aqui */
+    animation: jump 600ms ease-out; /* aumente o tempo aqui */
 }
 
 .clouds{
@@ -43,10 +43,10 @@
     position: absolute;
     bottom: 110px;
     right: -200px;
-    width: 200px;   /* aumente aqui */
-    height: 200px;  /* aumente aqui */
+    width: 400px;
+    height: 400px;
     z-index: 2;
-    animation: bill-animation 2s infinite linear;
+    animation: bill-animation 1s infinite linear; /* diminua o tempo aqui */
 }
 
 @keyframes pipe-animation {
