@@ -27,18 +27,26 @@ const jump = () => {
 };
 
 function chooseObstacle() {
-    // 50% de chance para cada obstáculo
-    currentObstacle = Math.random() < 0.5 ? 'pipe' : 'bill';
-    if (currentObstacle === 'pipe') {
+    if (score < 25) {
+        currentObstacle = 'pipe';
         pipe.style.display = 'block';
         pipe.style.animation = `pipe-animation ${pipeSpeed}s infinite linear`;
         bill.style.display = 'none';
         bill.style.animation = 'none';
     } else {
-        bill.style.display = 'block';
-        bill.style.animation = 'bill-animation 4s infinite linear';
-        pipe.style.display = 'none';
-        pipe.style.animation = 'none';
+        // 50% de chance para cada obstáculo
+        currentObstacle = Math.random() < 0.5 ? 'pipe' : 'bill';
+        if (currentObstacle === 'pipe') {
+            pipe.style.display = 'block';
+            pipe.style.animation = `pipe-animation ${pipeSpeed}s infinite linear`;
+            bill.style.display = 'none';
+            bill.style.animation = 'none';
+        } else {
+            bill.style.display = 'block';
+            bill.style.animation = 'bill-animation 4s infinite linear';
+            pipe.style.display = 'none';
+            pipe.style.animation = 'none';
+        }
     }
 }
 
