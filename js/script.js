@@ -42,7 +42,7 @@ function startGame() {
     mario.style.marginLeft = '';
     mario.classList.remove('game-over-jump');
     mario.classList.remove('jump');
-    mario.style.animation = ''; // <-- Adicione esta linha
+    mario.style.animation = '';
 
     // Reset Pipe
     pipe.style.left = ''; // volta para o padrão do CSS
