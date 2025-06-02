@@ -97,4 +97,15 @@ document.addEventListener('keydown', (event) => {
     if (event.code === 'Space' || event.code === 'ArrowUp') {
         jump();
     }
+    if (event.code === 'ArrowDown' && gameStarted) {
+        mario.classList.add('crouch');
+        mario.src = './images/mario-agachado.png';
+    }
+});
+
+document.addEventListener('keyup', (event) => {
+    if (event.code === 'ArrowDown' && gameStarted) {
+        mario.classList.remove('crouch');
+        mario.src = './images/mario.gif';
+    }
 });
