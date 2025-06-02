@@ -3,6 +3,7 @@ const pipe = document.querySelector('.pipe');
 const clouds = document.querySelector('.clouds');
 const scoreElement = document.getElementById('score');
 const startBtn = document.getElementById('start-btn');
+const bill = document.querySelector('.bill');
 
 let score = 0;
 let pipesJumped = 0;
@@ -10,6 +11,7 @@ let pipeSpeed = 3;
 let canScore = true;
 let loop = null;
 let gameStarted = false;
+let currentObstacle = 'pipe'; // 'pipe' ou 'bill'
 
 const updateScore = () => {
     score++;
@@ -23,6 +25,22 @@ const jump = () => {
         mario.classList.remove('jump');
     }, 500);
 };
+
+function chooseObstacle() {
+    // 50% de chance para cada obstáculo
+    currentObstacle = Math.random() < 0.5 ? 'pipe' : 'bill';
+    if (currentObstacle === 'pipe') {
+        pipe.style.display = 'block';
+        pipe.style.animation = `pipe-animation ${pipeSpeed}s infinite linear`;
+        bill.style.display = 'none';
+        bill.style.animation = 'none';
+    } else {
+        bill.style.display = 'block';
+        bill.style.animation = 'bill-animation 4s infinite linear';
+        pipe.style.display = 'none';
+        pipe.style.animation = 'none';
+    }
+}
 
 function startGame() {
     if (gameStarted) return;
@@ -44,14 +62,12 @@ function startGame() {
     mario.classList.remove('jump');
     mario.style.animation = '';
 
-    // Reset Pipe
-    pipe.style.left = ''; // volta para o padrão do CSS
-    pipe.style.animation = `pipe-animation ${pipeSpeed}s infinite linear`;
-    pipe.style.animationDuration = `${pipeSpeed}s`;
-
     // Reset Clouds
     clouds.style.left = '';
     clouds.style.animation = 'clouds-animation 15s infinite linear';
+
+    // Escolhe obstáculo inicial
+    chooseObstacle();
 
     // Limpa loop anterior se existir
     if (loop) clearInterval(loop);
@@ -60,34 +76,72 @@ function startGame() {
         const pipePosition = pipe.offsetLeft;
         const marioPosition = +window.getComputedStyle(mario).bottom.replace('px', '');
         const cloudsPosition = clouds.offsetLeft;
+        const billPosition = bill.offsetLeft;
 
-        if (pipePosition < 0 && canScore) {
-            pipesJumped++;
-            updateScore();
-            canScore = false;
-            if (pipesJumped % 10 === 0) {
-                pipeSpeed *= 0.9975;
-                pipe.style.animationDuration = `${pipeSpeed}s`;
+        // PIPE
+        if (currentObstacle === 'pipe') {
+            if (pipePosition < 0 && canScore) {
+                pipesJumped++;
+                updateScore();
+                canScore = false;
+                if (pipesJumped % 10 === 0) {
+                    pipeSpeed *= 0.9975;
+                }
+                // Troca obstáculo ao passar
+                chooseObstacle();
+            }
+            if (pipePosition > 120) {
+                canScore = true;
+            }
+            if (pipePosition <= 120 && pipePosition > 0 && marioPosition < 80) {
+                pipe.style.animation = 'none';
+                pipe.style.left =  `${pipePosition}px`;
+                mario.style.animation = 'none';
+                mario.style.bottom =  `${pipePosition}px`;
+                mario.src = './images/game-over.png';
+                mario.style.width = '75px';
+                mario.style.marginLeft = '50px';
+                mario.classList.add('game-over-jump');
+                clouds.style.animation = 'none';
+                clouds.style.left = `${cloudsPosition}px`;
+                clearInterval(loop);
+                gameStarted = false;
+                startBtn.style.display = 'block';
+                startBtn.textContent = 'Reiniciar';
             }
         }
-        if (pipePosition > 120) {
-            canScore = true;
-        }
-        if (pipePosition <= 120 && pipePosition > 0 && marioPosition < 80) {
-            pipe.style.animation = 'none';
-            pipe.style.left =  `${pipePosition}px`;
-            mario.style.animation = 'none';
-            mario.style.bottom =  `${pipePosition}px`;
-            mario.src = './images/game-over.png';
-            mario.style.width = '75px';
-            mario.style.marginLeft = '50px';
-            mario.classList.add('game-over-jump');
-            clouds.style.animation = 'none';
-            clouds.style.left = `${cloudsPosition}px`;
-            clearInterval(loop);
-            gameStarted = false;
-            startBtn.style.display = 'block';
-            startBtn.textContent = 'Reiniciar';
+
+        // BILL
+        if (currentObstacle === 'bill') {
+            if (billPosition < 0 && canScore) {
+                pipesJumped++;
+                updateScore();
+                canScore = false;
+                // Troca obstáculo ao passar
+                chooseObstacle();
+            }
+            if (billPosition > 120) {
+                canScore = true;
+            }
+            // Colisão com o Bill (apenas se Mario não estiver agachado)
+            if (
+                billPosition > 0 && billPosition < 150 &&
+                !mario.classList.contains('crouch')
+            ) {
+                bill.style.animation = 'none';
+                bill.style.right = `${billPosition}px`;
+                mario.style.animation = 'none';
+                mario.src = './images/game-over.png';
+                mario.style.width = '75px';
+                mario.style.marginLeft = '50px';
+                mario.classList.add('game-over-jump');
+                clouds.style.animation = 'none';
+                clouds.style.left = `${cloudsPosition}px`;
+                clearInterval(loop);
+                gameStarted = false;
+                startBtn.style.display = 'block';
+                startBtn.textContent = 'Reiniciar';
+            }
         }
     }, 10);
 }

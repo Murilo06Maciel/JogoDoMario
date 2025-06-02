@@ -39,6 +39,16 @@
     animation: clouds-animation 15s infinite linear;
 }
 
+.bill {
+    position: absolute;
+    bottom: 120px;
+    right: -200px;
+    width: 200px;   /* aumente aqui */
+    height: 100px;  /* aumente aqui */
+    z-index: 2;
+    animation: bill-animation 4s infinite linear;
+}
+
 @keyframes pipe-animation {
     from {
         right: -80px;
@@ -107,4 +117,13 @@
 .mario.crouch {
     height: 90px;   /* altura menor para agachar */
     width: 150px;   /* mesma largura do Mario em pé */
+}
+
+@keyframes bill-animation {
+    from {
+        right: -120px;
+    }
+    to {
+        right: 100%;
+    }
 }
