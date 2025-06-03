@@ -59,6 +59,10 @@
     animation: koopa-animation 2s infinite linear;
 }
 
+.bola-de-fogo {
+    pointer-events: none;
+}
+
 @keyframes pipe-animation {
     from {
         right: -80px;
