@@ -4,6 +4,7 @@ const clouds = document.querySelector('.clouds');
 const scoreElement = document.getElementById('score');
 const startBtn = document.getElementById('start-btn');
 const bill = document.querySelector('.bill');
+const koopa = document.querySelector('.koopa');
 
 let score = 0;
 let pipesJumped = 0;
@@ -33,18 +34,33 @@ function chooseObstacle() {
         pipe.style.animation = `pipe-animation ${pipeSpeed}s infinite linear`;
         bill.style.display = 'none';
         bill.style.animation = 'none';
+        koopa.style.display = 'none';
+        koopa.style.animation = 'none';
     } else {
-        currentObstacle = Math.random() < 0.5 ? 'pipe' : 'bill';
+        // Sorteia entre pipe, bill e koopa
+        const obstacles = ['pipe', 'bill', 'koopa'];
+        currentObstacle = obstacles[Math.floor(Math.random() * obstacles.length)];
         if (currentObstacle === 'pipe') {
             pipe.style.display = 'block';
             pipe.style.animation = `pipe-animation ${pipeSpeed}s infinite linear`;
             bill.style.display = 'none';
             bill.style.animation = 'none';
-        } else {
+            koopa.style.display = 'none';
+            koopa.style.animation = 'none';
+        } else if (currentObstacle === 'bill') {
             bill.style.display = 'block';
-            bill.style.animation = 'bill-animation 1s infinite linear'; // altere para 1s
+            bill.style.animation = 'bill-animation 1s infinite linear';
             pipe.style.display = 'none';
             pipe.style.animation = 'none';
+            koopa.style.display = 'none';
+            koopa.style.animation = 'none';
+        } else if (currentObstacle === 'koopa') {
+            koopa.style.display = 'block';
+            koopa.style.animation = 'koopa-animation 2s infinite linear';
+            pipe.style.display = 'none';
+            pipe.style.animation = 'none';
+            bill.style.display = 'none';
+            bill.style.animation = 'none';
         }
     }
 }
@@ -147,6 +163,40 @@ function startGame() {
             ) {
                 bill.style.animation = 'none';
                 bill.style.right = `${billPosition}px`;
+                mario.style.animation = 'none';
+                mario.src = './images/game-over.png';
+                mario.style.width = '75px';
+                mario.style.marginLeft = '50px';
+                mario.classList.add('game-over-jump');
+                clouds.style.animation = 'none';
+                clouds.style.left = `${cloudsPosition}px`;
+                clearInterval(loop);
+                gameStarted = false;
+                startBtn.style.display = 'block';
+                startBtn.textContent = 'Reiniciar';
+            }
+        }
+
+        // KOOPA
+        if (currentObstacle === 'koopa') {
+            const koopaPosition = koopa.offsetLeft;
+            if (koopaPosition < 0 && canScore) {
+                pipesJumped++;
+                updateScore();
+                canScore = false;
+                // Troca obstáculo ao passar
+                chooseObstacle();
+            }
+            if (koopaPosition > 120) {
+                canScore = true;
+            }
+            // Colisão com o Koopa
+            if (
+                koopaPosition > 0 && koopaPosition < 150 &&
+                mario.offsetTop + mario.offsetHeight > koopa.offsetTop // colisão simples
+            ) {
+                koopa.style.animation = 'none';
+                koopa.style.right = `${koopaPosition}px`;
                 mario.style.animation = 'none';
                 mario.src = './images/game-over.png';
                 mario.style.width = '75px';

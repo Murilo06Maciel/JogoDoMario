@@ -49,6 +49,16 @@
     animation: bill-animation 1s infinite linear; /* diminua o tempo aqui */
 }
 
+.koopa {
+    position: absolute;
+    bottom: 0;
+    right: -120px;
+    width: 120px;
+    height: 120px;
+    z-index: 2;
+    animation: koopa-animation 2s infinite linear;
+}
+
 @keyframes pipe-animation {
     from {
         right: -80px;
@@ -120,6 +130,15 @@
 }
 
 @keyframes bill-animation {
+    from {
+        right: -120px;
+    }
+    to {
+        right: 100%;
+    }
+}
+
+@keyframes koopa-animation {
     from {
         right: -120px;
     }
