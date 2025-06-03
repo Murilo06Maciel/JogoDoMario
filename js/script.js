@@ -50,7 +50,9 @@ function chooseObstacle() {
 }
 
 function startGame() {
-    if (gameStarted) return;
+    if (loop) clearInterval(loop); // Limpa qualquer loop anterior
+
+    // Reset variáveis
     gameStarted = true;
     startBtn.style.display = 'none';
     score = 0;
@@ -67,7 +69,18 @@ function startGame() {
     mario.style.marginLeft = '';
     mario.classList.remove('game-over-jump');
     mario.classList.remove('jump');
+    mario.classList.remove('crouch');
     mario.style.animation = '';
+
+    // Reset Pipe
+    pipe.style.display = 'block';
+    pipe.style.left = '';
+    pipe.style.animation = `pipe-animation ${pipeSpeed}s infinite linear`;
+
+    // Reset Bill
+    bill.style.display = 'none';
+    bill.style.right = '-200px';
+    bill.style.animation = 'none';
 
     // Reset Clouds
     clouds.style.left = '';
@@ -75,9 +88,6 @@ function startGame() {
 
     // Escolhe obstáculo inicial
     chooseObstacle();
-
-    // Limpa loop anterior se existir
-    if (loop) clearInterval(loop);
 
     loop = setInterval(() => {
         const pipePosition = pipe.offsetLeft;
