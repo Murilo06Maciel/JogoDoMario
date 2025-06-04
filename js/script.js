@@ -6,6 +6,7 @@ const startBtn = document.getElementById('start-btn');
 const bill = document.querySelector('.bill');
 const koopa = document.querySelector('.koopa');
 
+
 let score = 0;
 let pipesJumped = 0;
 let pipeSpeed = 3;
