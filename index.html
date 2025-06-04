@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +9,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="./css/style.css">
-    <script src="./js/script.js" defer></script>
+    <script src="js/mario.js"></script>
+    <script src="js/obstaculos.js"></script>
+    <script src="js/pontuacao.js"></script>
     <script src="js/atirar.js"></script>
+    <script src="js/loop.js"></script>
+    <script src="js/eventos.js"></script>
+    <script src="js/script.js"></script>
 
     <title>Mario Jump</title>
 </head>
+
 <body>
     <div class="game-board">
         <img src="./images/clouds.png" class="clouds">
@@ -22,7 +29,8 @@
         <img src="./images/koopa.gif" class="koopa" style="display:none;">
     </div>
 
-    <br><div class="container-fluid mt-0" style="position: relative; z-index: 2;">
+    <br>
+    <div class="container-fluid mt-0" style="position: relative; z-index: 2;">
         <div class="row align-items-center">
             <div class="col-3 d-flex justify-content-start">
                 <img src="./images/logo.png" alt="Logo" style="max-height: 120px; max-width: 100%;">
@@ -33,10 +41,12 @@
                 </div>
             </div>
             <div class="col-3 d-flex justify-content-end gap-3">
-                <button id="start-btn" class="btn btn-success btn-lg rounded-pill shadow" style="font-size: 3rem; padding: 12px 48px; letter-spacing: 1.5px;">
+                <button id="start-btn" class="btn btn-success btn-lg rounded-pill shadow"
+                    style="font-size: 3rem; padding: 12px 48px; letter-spacing: 1.5px;">
                     Iniciar
                 </button>
-                <a href="como_jogar.html" id="other-btn" class="btn btn-primary btn-lg rounded-pill shadow" style="font-size: 2rem; padding: 12px 32px; letter-spacing: 2px;">
+                <a href="como_jogar.html" id="other-btn" class="btn btn-primary btn-lg rounded-pill shadow"
+                    style="font-size: 2rem; padding: 12px 32px; letter-spacing: 2px;">
                     Como Jogar
                 </a>
             </div>
@@ -46,4 +56,5 @@
     <!-- Bootstrap JS (opcional, para componentes interativos) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
