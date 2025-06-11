@@ -160,3 +160,15 @@
         right: 100%;
     }
 }
+
+.browser {
+    position: absolute;
+    bottom: 0;
+    left: -200px;
+    width: 300px; /* tamanho fixo para todas as animações */
+    height: 220px; /* ajuste conforme necessário para o sprite */
+    z-index: 10;
+    display: none;
+    transition: left 1s linear, transform 0.5s;
+    object-fit: contain;
+}

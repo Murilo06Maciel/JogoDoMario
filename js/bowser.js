@@ -1,4 +1,20 @@
 const bowser = document.querySelector('.bowser');
+let bowserAppeared = false; // Variável para controlar se o Bowser já apareceu
+
+function checkBowserAppearance() {
+    if (score >= 2 && !bowserAppeared) {
+        bowserAppeared = true; // Marca que o Bowser já apareceu
+        animarBowser(); // Chama a função de animação do Bowser
+    }
+}
+
+// Modifique sua função de atualização de pontos para incluir esta verificação
+function updateScore() {
+    score++;
+    scoreDisplay.textContent = score;
+    checkBowserAppearance(); // Verifica se o Bowser deve aparecer
+    chooseObstacle(); // Mantém a lógica original de obstáculos
+}
 
 function animarBowser() {
     // Bowser começa fora da tela à direita
