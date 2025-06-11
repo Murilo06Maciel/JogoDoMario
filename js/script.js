@@ -18,6 +18,7 @@ let currentObstacle = 'pipe'; // 'pipe' ou 'bill'
 const updateScore = () => {
     score++;
     scoreElement.textContent = `Pontos: ${score}`;
+    checkBowserAppearance(score); // Adicione esta linha
 };
 
 const jump = () => {
