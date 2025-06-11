@@ -18,7 +18,7 @@ function updateScore() {
 
 function animarBowser() {
     // Bowser começa fora da tela à direita
-    bowser.src = './images/bowserandando.gif';
+    bowser.src = './images/bowser_Vindo.gif';
     bowser.style.display = 'block';
     bowser.style.position = 'absolute';
     bowser.style.left = '100%';
@@ -32,22 +32,22 @@ function animarBowser() {
 
         // Quando chegar, troca para parado
         setTimeout(() => {
-            bowser.src = './images/bowserparado.gif';
+            bowser.src = './images/bowser_Parado.gif';
 
             // Espera 1.5s, faz animação especial
             setTimeout(() => {
-                bowser.src = './images/bowseranimacao.gif';
+                bowser.src = './images/bowser_Animacao.gif';
 
                 // Depois volta a andar para a direita
                 setTimeout(() => {
-                    bowser.src = './images/bowserandando.gif';
+                    bowser.src = './images/bowser_Vindo.gif';
                     bowser.style.transform = 'scaleX(-1)'; // olhando para a direita
                     bowser.style.left = '100%';
 
                     // Quando quase sair da tela, ataca
                     setTimeout(() => {
                         bowser.style.transform = 'scaleX(1)'; // olha para o Mario
-                        bowser.src = './images/bowserataque.gif';
+                        bowser.src = './images/bowser cuspindo.gif';
 
                         // Exemplo: bolas de fogo (se existirem)
                         // const bolaTop = document.querySelector('.boladefogo-top');
