@@ -42,10 +42,10 @@ function animarBowser() {
         bowser.style.left = '60%';
 
         setTimeout(() => {
-            bowser.src = './images/bowser_Parado.gif';
+            bowser.src = './images/browser_Parado.gif';
 
             setTimeout(() => {
-                bowser.src = './images/bowser_Animacao.gif';
+                bowser.src = './images/browser_Animacao.gif';
 
                 setTimeout(() => {
                     bowser.src = './images/bowser_Vindo.gif';
@@ -54,7 +54,7 @@ function animarBowser() {
 
                     setTimeout(() => {
                         bowser.style.transform = 'scaleX(1)';
-                        bowser.src = './images/bowser_Ataque.gif';
+                        bowser.src = './images/browser_Ataque.gif';
 
                         setTimeout(() => {
                             bowser.style.left = '110%';
