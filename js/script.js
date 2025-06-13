@@ -30,6 +30,13 @@ const jump = () => {
 };
 
 function chooseObstacle() {
+    if (typeof bowserAnimationActive !== "undefined" && bowserAnimationActive) {
+        // Não mostra obstáculos durante animação do Bowser
+        pipe.style.display = 'none';
+        bill.style.display = 'none';
+        koopa.style.display = 'none';
+        return;
+    }
     if (score < 25) {
         currentObstacle = 'pipe';
         pipe.style.display = 'block';

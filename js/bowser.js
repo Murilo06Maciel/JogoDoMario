@@ -1,31 +1,31 @@
 const bowser = document.querySelector('.bowser');
 let bowserAppeared = false;
+let bowserAnimationActive = false; // NOVO
 
 function checkBowserAppearance(currentScore) {
     if (currentScore >= 2 && !bowserAppeared) {
         bowserAppeared = true;
+        bowserAnimationActive = true; // NOVO
         pauseGameForBowser();
         animarBowser();
     }
 }
 
 function pauseGameForBowser() {
-    // Pausa todos os obstáculos
+    // Pausa todos os obstáculos, mas NÃO para as nuvens!
     pipe.style.animation = 'none';
     bill.style.animation = 'none';
     koopa.style.animation = 'none';
     pipe.style.display = 'none';
     bill.style.display = 'none';
     koopa.style.display = 'none';
-    
-    // Pausa as nuvens
-    clouds.style.animation = 'none';
+    // clouds.style.animation = 'none'; // REMOVA ou COMENTE esta linha
 }
 
 function resumeGameAfterBowser() {
-    // Reativa o jogo normal
+    bowserAnimationActive = false;
     chooseObstacle();
-    clouds.style.animation = 'clouds-animation 15s infinite linear';
+    // clouds.style.animation = 'clouds-animation 15s infinite linear'; // REMOVA ou COMENTE esta linha
 }
 
 function animarBowser() {
