@@ -231,7 +231,10 @@ document.addEventListener('keyup', (event) => {
 });
 
 function checkFireballKoopaCollision() {
-    if (koopa.style.display === 'block' && fireball.style.display === 'block') {
+    if (
+        koopa.style.display === 'block' &&
+        fireball.style.display === 'block'
+    ) {
         const koopaRect = koopa.getBoundingClientRect();
         const fireballRect = fireball.getBoundingClientRect();
         if (
@@ -240,11 +243,9 @@ function checkFireballKoopaCollision() {
             fireballRect.bottom > koopaRect.top &&
             fireballRect.top < koopaRect.bottom
         ) {
+            // Faz o Koopa sumir/morrer
             koopa.style.display = 'none';
             koopa.style.animation = 'none';
-            // Pontuação extra se quiser:
-            score++;
-            scoreElement.textContent = `Pontos: ${score}`;
         }
     }
 }
