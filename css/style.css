@@ -53,11 +53,9 @@
 .koopa {
     position: absolute;
     bottom: 0;
-    right: -120px;
-    width: 120px;
-    height: 120px;
+    width: 80px;
+    height: 80px;
     z-index: 2;
-    animation: koopa-animation 2s infinite linear;
 }
 
 .bola-de-fogo {
@@ -144,12 +142,8 @@
 }
 
 @keyframes koopa-animation {
-    from {
-        right: -120px;
-    }
-    to {
-        right: 100%;
-    }
+    from { right: -100px; }
+    to { right: 100%; }
 }
 
 @keyframes background-animation {

@@ -5,6 +5,7 @@ const scoreElement = document.getElementById('score');
 const startBtn = document.getElementById('start-btn');
 const bill = document.querySelector('.bill');
 const koopa = document.querySelector('.koopa');
+const fireball = document.querySelector('.bola-de-fogo'); // ajuste o seletor se necessário
 
 
 let score = 0;
@@ -31,45 +32,32 @@ const jump = () => {
 
 function chooseObstacle() {
     if (typeof bowserAnimationActive !== "undefined" && bowserAnimationActive) {
-        // Não mostra obstáculos durante animação do Bowser
         pipe.style.display = 'none';
         bill.style.display = 'none';
         koopa.style.display = 'none';
         return;
     }
-    if (score < 25) {
+    if (!bowserAppeared) {
+        // Antes do Bowser: só pipe
         currentObstacle = 'pipe';
         pipe.style.display = 'block';
         pipe.style.animation = `pipe-animation ${pipeSpeed}s infinite linear`;
-        bill.style.display = 'none';
-        bill.style.animation = 'none';
         koopa.style.display = 'none';
         koopa.style.animation = 'none';
     } else {
-        // Sorteia entre pipe, bill e koopa
-        const obstacles = ['pipe', 'bill', 'koopa'];
-        currentObstacle = obstacles[Math.floor(Math.random() * obstacles.length)];
-        if (currentObstacle === 'pipe') {
+        // Após Bowser: sorteia pipe ou koopa
+        const sorteio = Math.random() < 0.5 ? 'pipe' : 'koopa';
+        currentObstacle = sorteio;
+        if (sorteio === 'pipe') {
             pipe.style.display = 'block';
             pipe.style.animation = `pipe-animation ${pipeSpeed}s infinite linear`;
-            bill.style.display = 'none';
-            bill.style.animation = 'none';
             koopa.style.display = 'none';
             koopa.style.animation = 'none';
-        } else if (currentObstacle === 'bill') {
-            bill.style.display = 'block';
-            bill.style.animation = 'bill-animation 1s infinite linear';
-            pipe.style.display = 'none';
-            pipe.style.animation = 'none';
-            koopa.style.display = 'none';
-            koopa.style.animation = 'none';
-        } else if (currentObstacle === 'koopa') {
+        } else {
             koopa.style.display = 'block';
-            koopa.style.animation = 'koopa-animation 2s infinite linear';
+            koopa.style.animation = `koopa-animation ${pipeSpeed + 1}s infinite linear`;
             pipe.style.display = 'none';
             pipe.style.animation = 'none';
-            bill.style.display = 'none';
-            bill.style.animation = 'none';
         }
     }
 }
@@ -219,6 +207,8 @@ function startGame() {
                 startBtn.textContent = 'Reiniciar';
             }
         }
+
+        checkFireballKoopaCollision();
     }, 10);
 }
 
@@ -239,3 +229,22 @@ document.addEventListener('keyup', (event) => {
         mario.src = './images/mario.gif';
     }
 });
+
+function checkFireballKoopaCollision() {
+    if (koopa.style.display === 'block' && fireball.style.display === 'block') {
+        const koopaRect = koopa.getBoundingClientRect();
+        const fireballRect = fireball.getBoundingClientRect();
+        if (
+            fireballRect.right > koopaRect.left &&
+            fireballRect.left < koopaRect.right &&
+            fireballRect.bottom > koopaRect.top &&
+            fireballRect.top < koopaRect.bottom
+        ) {
+            koopa.style.display = 'none';
+            koopa.style.animation = 'none';
+            // Pontuação extra se quiser:
+            score++;
+            scoreElement.textContent = `Pontos: ${score}`;
+        }
+    }
+}
