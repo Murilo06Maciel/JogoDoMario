@@ -22,7 +22,22 @@ function atirarBolaDeFogo() {
         pos += 15; // velocidade
         bola.style.left = pos + 'px';
 
-        // Apenas animação, não destrói inimigos
+        // Verifica colisão com o Koopa
+        const koopaRect = koopa.getBoundingClientRect();
+        const bolaRect = bola.getBoundingClientRect();
+        if (
+            koopa.style.display === 'block' &&
+            bolaRect.right > koopaRect.left &&
+            bolaRect.left < koopaRect.right &&
+            bolaRect.bottom > koopaRect.top &&
+            bolaRect.top < koopaRect.bottom
+        ) {
+            // Faz o Koopa sumir/morrer
+            koopa.style.display = 'none';
+            koopa.style.animation = 'none';
+            bola.remove();
+            clearInterval(moveInterval);
+        }
 
         // Remove a bola se sair da tela
         if (pos > document.querySelector('.game-board').offsetWidth) {
@@ -38,3 +53,34 @@ document.addEventListener('keydown', (event) => {
         atirarBolaDeFogo();
     }
 });
+
+function chooseObstacle() {
+    if (typeof bowserAnimationActive !== "undefined" && bowserAnimationActive) {
+        pipe.style.display = 'none';
+        bill.style.display = 'none';
+        koopa.style.display = 'none';
+        return;
+    }
+    if (!bowserAppeared) {
+        currentObstacle = 'pipe';
+        pipe.style.display = 'block';
+        pipe.style.animation = `pipe-animation ${pipeSpeed}s infinite linear`;
+        koopa.style.display = 'none';
+        koopa.style.animation = 'none';
+    } else {
+        const sorteio = Math.random() < 0.5 ? 'pipe' : 'koopa';
+        currentObstacle = sorteio;
+        if (sorteio === 'pipe') {
+            pipe.style.display = 'block';
+            pipe.style.animation = `pipe-animation ${pipeSpeed}s infinite linear`;
+            koopa.style.display = 'none';
+            koopa.style.animation = 'none';
+        } else {
+            koopa.style.display = 'block';
+            koopa.style.animation = `koopa-animation ${pipeSpeed + 1}s infinite linear`;
+            koopa.style.height = '80px'; // Ajusta a altura do Koopa
+            pipe.style.display = 'none';
+            pipe.style.animation = 'none';
+        }
+    }
+}
